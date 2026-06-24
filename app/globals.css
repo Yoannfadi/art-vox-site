@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Blueprint design tokens */
+  --bg: #080808; /* noir absolu */
+  --bg-2: #111111; /* noir chaud */
+  --gold: #d4af72; /* accent principal */
+  --gold-bright: #eac97a; /* accent secondaire */
+  --ivory: #f2f0eb; /* texte principal */
+  --silver: #9e9e9e; /* texte secondaire */
+
+  --card: rgba(255, 255, 255, 0.04); /* verre sombre */
+  --glow: rgba(212, 175, 114, 0.12); /* glow hover */
+  --hairline: rgba(212, 175, 114, 0.18); /* hairline border */
+
+  /* Typographic stacks (wired in layout via next/font/local) */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: system-ui, sans-serif;
+
+  /* Legacy aliases */
+  --ink: var(--bg);
+  --ink-2: var(--bg-2);
+  --surface: var(--bg-2);
+  --cream: var(--ivory);
+  --muted: var(--silver);
+  --gold-light: var(--gold-bright);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ivory);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  ::selection {
+    background: rgba(212, 175, 114, 0.28);
+    color: var(--ivory);
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-container px-6 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-eyebrow text-gold;
+  }
+
+  /* Gold filled button — glow + scale on hover */
+  .btn-gold {
+    @apply inline-flex items-center justify-center rounded-full bg-gold px-7 py-3 text-sm font-semibold text-bg transition-all duration-300 hover:scale-[1.03] hover:bg-goldBright;
+    box-shadow: 0 0 0 0 var(--glow);
+  }
+  .btn-gold:hover {
+    box-shadow: 0 10px 40px -8px rgba(212, 175, 114, 0.55);
+  }
+
+  /* Gold ghost button */
+  .btn-ghost,
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-full border border-gold/45 px-7 py-3 text-sm font-semibold text-gold transition-all duration-300 hover:scale-[1.03] hover:border-gold;
+  }
+  .btn-ghost:hover,
+  .btn-outline:hover {
+    background: var(--glow);
+    box-shadow: 0 10px 40px -12px rgba(212, 175, 114, 0.4);
+  }
+
+  /* Dark glass card */
+  .card {
+    @apply rounded-2xl border border-hairline p-7 transition-all duration-300;
+    background: var(--card);
+  }
+  .card:hover {
+    box-shadow: 0 16px 50px -20px rgba(212, 175, 114, 0.25);
+  }
+
+  .section {
+    @apply scroll-mt-24 py-20 sm:py-28;
+  }
+
+  /* Section titles & emphasis — Playfair Display */
+  .h-display {
+    @apply font-display font-bold leading-[1.08] tracking-tight;
+  }
+
+  /* Hero display — Cormorant Garamond, large & elegant */
+  .h-hero {
+    @apply font-serif font-semibold leading-[1.02] tracking-tight;
+  }
+
+  /* Citations / testimonials — Playfair italic */
+  .quote-serif {
+    @apply font-display italic;
+  }
+}
+
+/* Premium FAQ accordion marker */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Ken-Burns safety: freeze under reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-ken-burns,
+  .animate-cursor-pulse {
+    animation: none !important;
+  }
+}
